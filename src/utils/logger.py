@@ -71,3 +71,5 @@ logging.config.dictConfig(log_config)
 
 def get_logger(name: str):
     return logging.getLogger(name)
+
+logger = get_logger("QWENZIE")

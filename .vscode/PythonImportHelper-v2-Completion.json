@@ -1,11 +1,47 @@
 [
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
         "label": "discord",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "discord",
         "description": "discord",
         "detail": "discord",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "config",
+        "description": "config",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "jishaku",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "jishaku",
+        "description": "jishaku",
+        "detail": "jishaku",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
         "documentation": {}
     },
     {
@@ -17,21 +53,35 @@
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
         "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
+        "detail": "typing",
         "documentation": {}
     },
     {
-        "label": "logging",
-        "kind": 6,
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
         "isExtraImport": true,
-        "importPath": "logging",
-        "description": "logging",
-        "detail": "logging",
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Coroutine",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "utils.logger",
+        "description": "utils.logger",
+        "isExtraImport": true,
+        "detail": "utils.logger",
         "documentation": {}
     },
     {
@@ -61,11 +111,19 @@
         "documentation": {}
     },
     {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
         "label": "Bot",
         "kind": 6,
         "importPath": "src.core.bot",
         "description": "src.core.bot",
-        "peekOfCode": "class Bot(commands.AutoShardedBot):\n    def __init__(self):\n        super().__init__(\n            command_prefix='?',\n            intents=intents,\n        )",
+        "peekOfCode": "class Bot(commands.AutoShardedBot):\n    def __init__(self):\n        super().__init__(\n            command_prefix='?',\n            intents=intents,\n            activity=discord.CustomActivity(name=\"discord.gg/techsolace\"),\n            status=discord.Status.idle,\n            owner_ids=config.owner_ids\n        )\n    @property",
         "detail": "src.core.bot",
         "documentation": {}
     },
@@ -74,7 +132,7 @@
         "kind": 5,
         "importPath": "src.core.bot",
         "description": "src.core.bot",
-        "peekOfCode": "intents = discord.Intents.all()\nintents.presences = False\nclass Bot(commands.AutoShardedBot):\n    def __init__(self):\n        super().__init__(\n            command_prefix='?',\n            intents=intents,\n        )",
+        "peekOfCode": "intents = discord.Intents.all()\nintents.presences = False\nstartup : List[Callable[[\"Bot\"], Coroutine]] = []\nclass Bot(commands.AutoShardedBot):\n    def __init__(self):\n        super().__init__(\n            command_prefix='?',\n            intents=intents,\n            activity=discord.CustomActivity(name=\"discord.gg/techsolace\"),\n            status=discord.Status.idle,",
         "detail": "src.core.bot",
         "documentation": {}
     },
@@ -83,7 +141,16 @@
         "kind": 5,
         "importPath": "src.core.bot",
         "description": "src.core.bot",
-        "peekOfCode": "intents.presences = False\nclass Bot(commands.AutoShardedBot):\n    def __init__(self):\n        super().__init__(\n            command_prefix='?',\n            intents=intents,\n        )",
+        "peekOfCode": "intents.presences = False\nstartup : List[Callable[[\"Bot\"], Coroutine]] = []\nclass Bot(commands.AutoShardedBot):\n    def __init__(self):\n        super().__init__(\n            command_prefix='?',\n            intents=intents,\n            activity=discord.CustomActivity(name=\"discord.gg/techsolace\"),\n            status=discord.Status.idle,\n            owner_ids=config.owner_ids",
+        "detail": "src.core.bot",
+        "documentation": {}
+    },
+    {
+        "label": "bot",
+        "kind": 5,
+        "importPath": "src.core.bot",
+        "description": "src.core.bot",
+        "peekOfCode": "bot = Bot()",
         "detail": "src.core.bot",
         "documentation": {}
     },
@@ -110,7 +177,7 @@
         "kind": 2,
         "importPath": "src.utils.logger",
         "description": "src.utils.logger",
-        "peekOfCode": "def get_logger(name: str):\n    return logging.getLogger(name)",
+        "peekOfCode": "def get_logger(name: str):\n    return logging.getLogger(name)\nlogger = get_logger(\"QWENZIE\")",
         "detail": "src.utils.logger",
         "documentation": {}
     },
@@ -139,6 +206,42 @@
         "description": "src.utils.logger",
         "peekOfCode": "log_config = {\n    'version': 1,\n    'disable_existing_loggers': False,\n    'formatters': {\n        'standard': {\n            'format': '%(levelname)s : %(asctime)s - %(name)s : %(message)s',\n        },\n        'colored': {\n            '()': CustomColoredFormatter,\n            'format': log_format,",
         "detail": "src.utils.logger",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "src.utils.logger",
+        "description": "src.utils.logger",
+        "peekOfCode": "logger = get_logger(\"QWENZIE\")",
+        "detail": "src.utils.logger",
+        "documentation": {}
+    },
+    {
+        "label": "dotenv_path",
+        "kind": 5,
+        "importPath": "src.config",
+        "description": "src.config",
+        "peekOfCode": "dotenv_path = os.path.join(os.path.dirname(__file__), '../.env')\nload_dotenv(dotenv_path)\nowner_ids = os.getenv('OWNER_IDS')\ntoken = os.getenv(\"TOKEN\")",
+        "detail": "src.config",
+        "documentation": {}
+    },
+    {
+        "label": "owner_ids",
+        "kind": 5,
+        "importPath": "src.config",
+        "description": "src.config",
+        "peekOfCode": "owner_ids = os.getenv('OWNER_IDS')\ntoken = os.getenv(\"TOKEN\")",
+        "detail": "src.config",
+        "documentation": {}
+    },
+    {
+        "label": "token",
+        "kind": 5,
+        "importPath": "src.config",
+        "description": "src.config",
+        "peekOfCode": "token = os.getenv(\"TOKEN\")",
+        "detail": "src.config",
         "documentation": {}
     }
 ]
