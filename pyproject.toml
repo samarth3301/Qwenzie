@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "qwenzie"
+version = "0.1.0"
+description = "A simple discord ticket bot with pane"
+authors = ["samarth3301 <samarplayz1337@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+discord = "^2.3.2"
+jishaku = "^2.5.2"
+prisma = "^0.13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -7,3 +7,9 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model guildConfig {
+  id      String @id @default(uuid()) @map("_id")
+  guildId String
+  prefix  String @default("?")
+}
