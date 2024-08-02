@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mims"
 version = "0.1.0"
-description = "mims the best discord economy system"
+description = "a minimal discord ticket bot with a pannel system."
 authors = ["samarthwtf <samarplayz1337@gmail.com>"]
 
 [tool.poetry.dependencies]
