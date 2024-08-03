@@ -8,30 +8,38 @@ class AdminCommands(commands.Cog):
         self.bot = bot
     
     @commands.group(
-        name='pannel'
+        name='panel'
     )
     @commands.has_permissions(administrator=True)
-    async def pannel(self, ctx: commands.Context):
+    async def panel(self, ctx: commands.Context):
         embed = discord.Embed(
             color=config.Color.default,
-            description='hello world'
+            description=
+            f'> **`create` :** creates a panel.\n'
+            f'> **`delete` :** removes a panel.\n'
+            f'> **`show  ` :** view\'s panel configurations.'
         )
+        embed.set_author(name='panel Commands')
+        embed.set_thumbnail(url=self.bot.user.avatar.url)
         await ctx.reply(embed=embed, mention_author=False)
     
-    @pannel.command(
+    @panel.command(
         name='create',
         aliases=['add']
     )
     @commands.has_permissions(administrator=True)
-    async def pannel_add(self, ctx: commands.Context):
-        pass
+    async def panel_add(self, ctx: commands.Context):
+        embed = discord.Embed(
+            color=config.Color.default,
+            description=''
+        )
 
-    @pannel.command(
+    @panel.command(
         name='delete',
         aliases=['remove']
     )
     @commands.has_permissions(administrator=True)
-    async def pannel_remove(self, ctx: commands.Context):
+    async def panel_remove(self, ctx: commands.Context):
         pass
 
 
@@ -48,7 +56,7 @@ class AdminCommands(commands.Cog):
             color=config.Color.default,
             description=
             f'> prefix : {guildData.prefix}\n'
-            f'> pannels: {guildData.pannel_count}'
+            f'> panels: {guildData.panel_count}'
         )
         embed.set_author(name=f'{ctx.guild.name}\'s config')
         await ctx.reply(embed=embed, view=None)

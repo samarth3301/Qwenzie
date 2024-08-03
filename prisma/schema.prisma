@@ -9,8 +9,17 @@ datasource db {
 }
 
 model guildConfig {
-  id           String @id @default(uuid()) @map("_id")
-  guildId      BigInt @unique
-  prefix       String @default("?")
-  pannel_count Int    @default(0)
+  id           String    @id @default(uuid()) @map("_id")
+  guildId      BigInt    @unique
+  prefix       String    @default("?")
+  pannel_count Int       @default(0)
+  pannels      Pannels[]
+}
+
+model Pannels {
+  id            String       @id @default(uuid()) @map("_id")
+  guildConfig   guildConfig? @relation(fields: [guildConfigId], references: [id])
+  guildConfigId String?
+  channel       BigInt
+  pannelId      BigInt
 }
