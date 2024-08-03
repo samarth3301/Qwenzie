@@ -9,7 +9,19 @@ datasource db {
 }
 
 model guildConfig {
-  id      String @id @default(uuid()) @map("_id")
-  guildId String
-  prefix  String @default("?")
+  id           String    @id @default(uuid()) @map("_id")
+  guildId      String
+  prefix       String    @default("?")
+  pannels      Pannels[]
+  pannel_count Int       @default(0)
+}
+
+model Pannels {
+  id            String       @id @default(uuid()) @map("_id")
+  guildId       String?
+  pannelId      String?
+  guildConfig   guildConfig? @relation(fields: [guildConfigId], references: [id])
+  guildConfigId String?
+  createdBy     String?
+  creatodAt     String?
 }

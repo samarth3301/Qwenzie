@@ -7,6 +7,7 @@ import logging
 from discord.ext import commands
 from typing import List, Callable, Coroutine
 from utils.logger import logger
+from prisma import Prisma
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -37,11 +38,22 @@ class Bot(commands.AutoShardedBot):
                     logger.error(e)
         await self.load_extension('jishaku')
 
+    @startup.append
+    async def connect_db(self):
+        try:
+            self.db = Prisma()
+            await self.db.connect()
+            logger.info('Connected to database.')
+        except Exception as e:
+            logger.error(e)
+
     async def setup_hook(self):
         await self.tree.sync()
         for tasks in startup:
             self.loop.create_task(tasks(self))
 
+    async def on_close(self):
+        await self.db.disconnect()
 
     async def on_message_edit(self, before: discord.Message, after: discord.Message):
         if not before.author.bot and before.content != after.content:
