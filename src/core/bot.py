@@ -47,6 +47,7 @@ class Bot(commands.AutoShardedBot):
         except Exception as e:
             logger.error(e)
 
+
     async def setup_hook(self):
         await self.tree.sync()
         for tasks in startup:

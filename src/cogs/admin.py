@@ -2,6 +2,7 @@ import config
 import discord
 from discord.ext import commands
 from core.bot import Bot
+from tools.view.admin_pannel import CreatePannelView
 
 class AdminCommands(commands.Cog):
     def __init__(self, bot: Bot):
@@ -15,37 +16,29 @@ class AdminCommands(commands.Cog):
         embed = discord.Embed(
             color=config.Color.default,
             description=
-            f'> **`create` :** creates a panel.\n'
-            f'> **`delete` :** removes a panel.\n'
-            f'> **`show  ` :** view\'s panel configurations.'
+            f'> **`config` :** show\'s the guild ticket pannel configurations.\n\n'
+            f'Allows you to create, edit, and delete panel configurations efficiently.'
         )
-        embed.set_author(name='panel Commands')
+        embed.set_author(name='panel commands')
         embed.set_thumbnail(url=self.bot.user.avatar.url)
         await ctx.reply(embed=embed, mention_author=False)
     
     @panel.command(
-        name='create',
-        aliases=['add']
+        name='config',
     )
     @commands.has_permissions(administrator=True)
     async def panel_add(self, ctx: commands.Context):
         embed = discord.Embed(
             color=config.Color.default,
-            description=''
+            description='hello world'
         )
-
-    @panel.command(
-        name='delete',
-        aliases=['remove']
-    )
-    @commands.has_permissions(administrator=True)
-    async def panel_remove(self, ctx: commands.Context):
-        pass
-
+        view = CreatePannelView(bot=self.bot, ctx=ctx)
+        await ctx.reply(embed=embed, view=view)
 
     @commands.group(
         name='config'
     )
+    @commands.has_permissions(administrator=True)
     async def guild_configurations(self, ctx: commands.Context):
         guildData = await self.bot.db.guildconfig.find_first(
             where={

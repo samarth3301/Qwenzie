@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from discord.ui import View
 
+
 class DefaultView(View):
     def __init__(self, ctx: commands.Context, *, timeout = 180):
         super().__init__(timeout=timeout)

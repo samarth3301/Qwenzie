@@ -9,6 +9,8 @@ token = os.getenv("TOKEN")
 
 class Color:
     default = 0x70a9ff
+    green = 0x86ff74
+    red = 0xff7474
 
 class Media:
     pannel_banner = ""
