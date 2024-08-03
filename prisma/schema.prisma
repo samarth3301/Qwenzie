@@ -23,3 +23,16 @@ model Pannels {
   channel     BigInt
   pannelId    BigInt
 }
+
+model PannelConfig {
+  id             String  @id @default(uuid()) @map("_id")
+  pannel_message String  @default("click here to open a ticket")
+  button_style   String  @default("primary")
+  button_label   String  @default("🎫 Click Here")
+  category       BigInt  @unique
+  ticket_message String?
+}
+
+model TicketConfig {
+  id String @id @default(uuid()) @map("_id")
+}

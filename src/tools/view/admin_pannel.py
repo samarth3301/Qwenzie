@@ -3,6 +3,7 @@ import discord
 from tools.default_view import DefaultView
 from discord.ext import commands
 from core.bot import Bot
+from tools.view.create_pannel import SelectPannelChannel, SelectPannelCategory, SelectPannelSupportRoles
 
 
 class CreatePannelView(discord.ui.View):
@@ -34,6 +35,29 @@ class CreatePannelView(discord.ui.View):
         embed = discord.Embed(
             color=config.Color.default,
             description=
-            f'Select your preferances from the options below... and select the save button...'
+            f'Select your preferances from the options below.\n'
+            f'And select the save button. To save your changes.\n'
+            f'Leave the dropdowns blank to avoid the option.\n'
+            f'Click on the `ℹ️` button for more information.'
         )
-        await interation.response.edit_message(embed=embed, ephemeral=True)
+        view = discord.ui.View()
+        view.add_item(SelectPannelChannel())
+        view.add_item(SelectPannelCategory())
+        view.add_item(SelectPannelSupportRoles())
+        await interation.response.edit_message(embed=embed, view=view)
+
+    @discord.ui.button(label='remove panel', style=discord.ButtonStyle.primary, row=0)
+    async def remove_panel_interaction(self, interaction: discord.Interaction, button: discord.Button):
+        embed = discord.Embed(
+            color=config.Color.default,
+            description='Pannels configurations to be listed here'
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True, view=self)
+
+    @discord.ui.button(label='edit panel', style=discord.ButtonStyle.primary, row=0)
+    async def edit_panel_interaction(self, interaction: discord.Interaction, button: discord.Button):
+        embed = discord.Embed(
+            color=config.Color.default,
+            description='Editable Pannels configurations to be listed'
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True, view=self)
