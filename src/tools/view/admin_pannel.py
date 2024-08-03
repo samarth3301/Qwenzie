@@ -4,6 +4,7 @@ from tools.default_view import DefaultView
 from discord.ext import commands
 from core.bot import Bot
 from tools.view.create_pannel import SelectPannelChannel, SelectPannelCategory, SelectPannelSupportRoles
+from tools.view.create_pannel import AddPannelView
 
 
 class CreatePannelView(discord.ui.View):
@@ -40,10 +41,7 @@ class CreatePannelView(discord.ui.View):
             f'Leave the dropdowns blank to avoid the option.\n'
             f'Click on the `ℹ️` button for more information.'
         )
-        view = discord.ui.View()
-        view.add_item(SelectPannelChannel())
-        view.add_item(SelectPannelCategory())
-        view.add_item(SelectPannelSupportRoles())
+        view = AddPannelView(self.bot, self.ctx)
         await interation.response.edit_message(embed=embed, view=view)
 
     @discord.ui.button(label='remove panel', style=discord.ButtonStyle.primary, row=0)
