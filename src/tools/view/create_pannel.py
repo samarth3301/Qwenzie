@@ -2,11 +2,10 @@ import config
 from typing import Any
 import discord
 from discord.ext import commands
-from tools.default_view import DefaultView
-from src.core.bot import Bot
+from core.bot import Bot
 
 
-class SelectPannelChannel(discord.ui.ChannelSelect):
+class SelectPanelChannel(discord.ui.ChannelSelect):
     def __init__(self):
         super().__init__(
             channel_types=[discord.ChannelType.text],
@@ -22,7 +21,7 @@ class SelectPannelChannel(discord.ui.ChannelSelect):
         await interaction.response.defer()
 
 
-class SelectPannelCategory(discord.ui.ChannelSelect):
+class SelectPanelCategory(discord.ui.ChannelSelect):
     def __init__(self):
         super().__init__(
             channel_types=[discord.ChannelType.category],
@@ -38,7 +37,7 @@ class SelectPannelCategory(discord.ui.ChannelSelect):
         self.category_id = self.values[0].id
         await interaction.response.defer()
 
-class SelectPannelSupportRoles(discord.ui.RoleSelect):
+class SelectPanelSupportRoles(discord.ui.RoleSelect):
     def __init__(self):
         super().__init__(
             placeholder='Select your support roles for the panel..',
@@ -55,29 +54,77 @@ class SelectPannelSupportRoles(discord.ui.RoleSelect):
         print(self.roles_ids)
         await interaction.response.defer()
 
+class SelectPanelAdmins(discord.ui.UserSelect):
+    def __init__(self):
+        super().__init__(
+            placeholder='Select your admins for the panel..',
+            min_values=1,
+            max_values=5,
+            row=3
+        )
+        self.user_ids = []
+    
+    async def callback(self, interaction: discord.Interaction):
+        self.user_ids.clear()
+        for user in self.values:
+            self.user_ids.append(user.id)
+        print(self.user_ids)
+        await interaction.response.defer()
+
+class SelectTranscriptChannel(discord.ui.ChannelSelect):
+    def __init__(self):
+        super().__init__(
+            channel_types=[discord.ChannelType.text],
+            placeholder='Select your transcript channel.',
+            min_values=1,
+            max_values=1,
+            row=4
+        )
+        self.channel_id = None
+    
+    async def callback(self, interaction: discord.Interaction):
+        self.channel_id = self.values[0].id
+        await interaction.response.defer()
+
 
 class AddPannelView(discord.ui.View):
     def __init__(self, bot: Bot, ctx: commands.Context, *, timeout=180):
         super().__init__(timeout=timeout)
         self.bot = bot
         self.ctx = ctx
-        self.add_item(SelectPannelChannel())
-        self.add_item(SelectPannelCategory())
-        self.add_item(SelectPannelSupportRoles())
+        self.select_panel_channel = SelectPanelChannel()
+        self.select_panel_category = SelectPanelCategory()
+        self.select_panel_support_roles = SelectPanelSupportRoles()
+        self.select_panel_admins = SelectPanelAdmins()
+        self.select_panel_transcript = SelectTranscriptChannel()
+        self.add_item(self.select_panel_channel)
+        self.add_item(self.select_panel_category)
+        self.add_item(self.select_panel_support_roles)
+        self.add_item(self.select_panel_admins)
+        self.add_item(self.select_panel_transcript)
 
-    @discord.ui.button(emoji='✅', label='save', style=discord.ButtonStyle.gray, row=3)
+    @discord.ui.button(emoji='✅', label='save', style=discord.ButtonStyle.gray, row=5)
     async def on_save(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed =  discord.Embed(
             color=config.Color.default,
             description=
-            f'> '
+            f'> **Channel :** <#{self.select_panel_channel.channel_id}> ({self.select_panel_channel.channel_id})\n'
+            f'> **Category :** {self.select_panel_category.category_id}\n'
+            f'> **Transcripts :** <#{self.select_panel_transcript.channel_id}> ({self.select_panel_transcript.channel_id})\n'
+            f'> **Support Roles :** {self.select_panel_support_roles.roles_ids}\n'
+            f'> ****'
         )
-        embed.set_author(name=interaction.guild.icon.url)
-        await self.bot.db.pannels.create(
-            
-        )
+        embed.set_author(name='Created a new panel with following configurations :')
         await interaction.response.edit_message(embed=embed, view=None)
 
-    @discord.ui.button(emoji='ℹ️', style=discord.ButtonStyle.gray, row=3)
+    @discord.ui.button(emoji='ℹ️', style=discord.ButtonStyle.gray, row=5)
     async def on_info(self, interaction: discord.Interaction, button: discord.ui.Button):
-        pass
+        embed = discord.Embed(
+            color=config.Color.default
+        )
+        embed.set_author(name='Pannel DropDown Values.')
+        embed.add_field(name='Pannel Channel', value='> This is the channel where the pannel will be posted in.', inline=False)
+        embed.add_field(name='Pannel Category', value='> Select a category where the tickets will be created.', inline=False)
+        embed.add_field(name='Support Roles', value='> Select the support ticket roles. (only 5 roles can be selected as support roles)', inline=False)
+        embed.add_field(name='Pannel Admins', value='> Select the users who are allowed to manage the tickets under this category. (leave blank if None.)', inline=False)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
