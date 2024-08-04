@@ -65,10 +65,10 @@ class SelectPanelAdmins(discord.ui.UserSelect):
         self.users = []
     
     async def callback(self, interaction: discord.Interaction):
-        self.user_ids.clear()
+        self.users.clear()
         for user in self.values:
-            self.user_ids.append(user)
-        print(self.user_ids)
+            self.users.append(user)
+        print(self.users)
         await interaction.response.defer()
 
 
@@ -110,7 +110,8 @@ class AddPannelView(discord.ui.View):
         data={
             'pannel_count' : {'increment' : 1}
         })
-        await interaction.response.edit_message(embed=embed, view=None)
+        button.disabled = True
+        await interaction.response.edit_message(embed=embed, view=self)
 
     @discord.ui.button(label='next', style=discord.ButtonStyle.gray, row=4)
     async def on_next(self, interaction: discord.Interaction, button: discord.ui.Button):

@@ -21,7 +21,7 @@ model Pannels {
   guildConfig  guildConfig? @relation(fields: [guildId], references: [guildId])
   guildId      BigInt?
   channel      BigInt
-  pannelId     BigInt
+  pannelId     BigInt?
   admins       BigInt[]
   supportRoles BigInt[]
 }
