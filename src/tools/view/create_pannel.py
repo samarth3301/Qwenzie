@@ -87,7 +87,7 @@ class AddPannelView(discord.ui.View):
         self.add_item(self.select_panel_support_roles)
         self.add_item(self.select_panel_admins)
 
-    @discord.ui.button(emoji='✅', label='save', style=discord.ButtonStyle.gray, row=5)
+    @discord.ui.button(emoji='✅', label='save', style=discord.ButtonStyle.gray, row=4)
     async def on_save(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed =  discord.Embed(
             color=config.Color.default,
@@ -112,7 +112,7 @@ class AddPannelView(discord.ui.View):
         })
         await interaction.response.edit_message(embed=embed, view=None)
 
-    @discord.ui.button(label='next', style=discord.ButtonStyle.gray)
+    @discord.ui.button(label='next', style=discord.ButtonStyle.gray, row=4)
     async def on_next(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
             color=config.Color.default,
@@ -120,7 +120,7 @@ class AddPannelView(discord.ui.View):
         )
         await interaction.response.send_message(embed=embed)
 
-    @discord.ui.button(emoji='ℹ️', style=discord.ButtonStyle.gray, row=5)
+    @discord.ui.button(emoji='ℹ️', style=discord.ButtonStyle.gray, row=4)
     async def on_info(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
             color=config.Color.default
