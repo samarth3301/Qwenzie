@@ -3,7 +3,6 @@ import discord
 from tools.default_view import DefaultView
 from discord.ext import commands
 from core.bot import Bot
-from tools.view.create_pannel import SelectPannelChannel, SelectPannelCategory, SelectPannelSupportRoles
 from tools.view.create_pannel import AddPannelView
 
 
@@ -38,6 +37,7 @@ class CreatePannelView(discord.ui.View):
             description=
             f'Select your preferances from the options below.\n'
             f'And select the save button. To save your changes.\n'
+            f'Click next to move to the next customization.\n'
             f'Leave the dropdowns blank to avoid the option.\n'
             f'Click on the `ℹ️` button for more information.'
         )

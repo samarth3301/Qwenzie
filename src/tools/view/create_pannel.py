@@ -71,20 +71,6 @@ class SelectPanelAdmins(discord.ui.UserSelect):
         print(self.user_ids)
         await interaction.response.defer()
 
-class SelectTranscriptChannel(discord.ui.ChannelSelect):
-    def __init__(self):
-        super().__init__(
-            channel_types=[discord.ChannelType.text],
-            placeholder='Select your transcript channel.',
-            min_values=1,
-            max_values=1,
-            row=4
-        )
-        self.channel_id = None
-    
-    async def callback(self, interaction: discord.Interaction):
-        self.channel_id = self.values[0].id
-        await interaction.response.defer()
 
 
 class AddPannelView(discord.ui.View):
@@ -96,12 +82,10 @@ class AddPannelView(discord.ui.View):
         self.select_panel_category = SelectPanelCategory()
         self.select_panel_support_roles = SelectPanelSupportRoles()
         self.select_panel_admins = SelectPanelAdmins()
-        self.select_panel_transcript = SelectTranscriptChannel()
         self.add_item(self.select_panel_channel)
         self.add_item(self.select_panel_category)
         self.add_item(self.select_panel_support_roles)
         self.add_item(self.select_panel_admins)
-        self.add_item(self.select_panel_transcript)
 
     @discord.ui.button(emoji='✅', label='save', style=discord.ButtonStyle.gray, row=5)
     async def on_save(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -110,7 +94,6 @@ class AddPannelView(discord.ui.View):
             description=
             f'> **Channel :** <#{self.select_panel_channel.channel_id}> ({self.select_panel_channel.channel_id})\n'
             f'> **Category :** {self.select_panel_category.category_id}\n'
-            f'> **Transcripts :** <#{self.select_panel_transcript.channel_id}> ({self.select_panel_transcript.channel_id})\n'
             f'> **Support Roles :** {self.select_panel_support_roles.roles_ids}\n'
             f'> **Ticket Admins :** {self.select_panel_admins.users}'
         )
@@ -118,7 +101,8 @@ class AddPannelView(discord.ui.View):
         await self.bot.db.pannels.create(data={
             'guildId' : interaction.guild.id,
             'channel' : self.select_panel_channel.channel_id,
-            'supportRoles' : self.select_panel_support_roles.roles_ids
+            'supportRoles' : self.select_panel_support_roles.roles_ids,
+            'admins' : self.select_panel_admins.users
         })
         await self.bot.db.guildconfig.update(where={
             'guildId' : interaction.guild.id,
@@ -127,6 +111,14 @@ class AddPannelView(discord.ui.View):
             'pannel_count' : {'increment' : 1}
         })
         await interaction.response.edit_message(embed=embed, view=None)
+
+    @discord.ui.button(label='next', style=discord.ButtonStyle.gray)
+    async def on_next(self, interaction: discord.Interaction, button: discord.ui.Button):
+        embed = discord.Embed(
+            color=config.Color.default,
+            description='moves to the next configuration'
+        )
+        await interaction.response.send_message(embed=embed)
 
     @discord.ui.button(emoji='ℹ️', style=discord.ButtonStyle.gray, row=5)
     async def on_info(self, interaction: discord.Interaction, button: discord.ui.Button):
