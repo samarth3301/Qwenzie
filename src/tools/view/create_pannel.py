@@ -62,12 +62,12 @@ class SelectPanelAdmins(discord.ui.UserSelect):
             max_values=5,
             row=3
         )
-        self.user_ids = []
+        self.users = []
     
     async def callback(self, interaction: discord.Interaction):
         self.user_ids.clear()
         for user in self.values:
-            self.user_ids.append(user.id)
+            self.user_ids.append(user)
         print(self.user_ids)
         await interaction.response.defer()
 
@@ -112,9 +112,20 @@ class AddPannelView(discord.ui.View):
             f'> **Category :** {self.select_panel_category.category_id}\n'
             f'> **Transcripts :** <#{self.select_panel_transcript.channel_id}> ({self.select_panel_transcript.channel_id})\n'
             f'> **Support Roles :** {self.select_panel_support_roles.roles_ids}\n'
-            f'> ****'
+            f'> **Ticket Admins :** {self.select_panel_admins.users}'
         )
         embed.set_author(name='Created a new panel with following configurations :')
+        await self.bot.db.pannels.create(data={
+            'guildId' : interaction.guild.id,
+            'channel' : self.select_panel_channel.channel_id,
+            'supportRoles' : self.select_panel_support_roles.roles_ids
+        })
+        await self.bot.db.guildconfig.update(where={
+            'guildId' : interaction.guild.id,
+        },
+        data={
+            'pannel_count' : {'increment' : 1}
+        })
         await interaction.response.edit_message(embed=embed, view=None)
 
     @discord.ui.button(emoji='ℹ️', style=discord.ButtonStyle.gray, row=5)

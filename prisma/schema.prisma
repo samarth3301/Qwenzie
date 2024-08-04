@@ -17,11 +17,13 @@ model guildConfig {
 }
 
 model Pannels {
-  id          String       @id @default(uuid()) @map("_id")
-  guildConfig guildConfig? @relation(fields: [guildId], references: [guildId])
-  guildId     BigInt?
-  channel     BigInt
-  pannelId    BigInt
+  id           String       @id @default(uuid()) @map("_id")
+  guildConfig  guildConfig? @relation(fields: [guildId], references: [guildId])
+  guildId      BigInt?
+  channel      BigInt
+  pannelId     BigInt
+  admins       BigInt[]
+  supportRoles BigInt[]
 }
 
 model PannelConfig {
