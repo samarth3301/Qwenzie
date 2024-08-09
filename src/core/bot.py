@@ -56,7 +56,8 @@ class Bot(commands.AutoShardedBot):
     async def on_close(self):
         await self.db.disconnect()
 
-    async def on_message_edit(self, before: discord.Message, after: discord.Message):
+    @staticmethod
+    async def on_message_edit(before: discord.Message, after: discord.Message):
         if not before.author.bot and before.content != after.content:
             await bot.process_commands(after)
 
