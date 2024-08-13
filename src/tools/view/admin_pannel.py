@@ -1,9 +1,9 @@
 import config
 import discord
 from tools.default_view import DefaultView
+from tools.view.create_pannel import AddPannelView
 from discord.ext import commands
 from core.bot import Bot
-from tools.view.create_pannel import AddPannelView
 
 
 class CreatePannelView(discord.ui.View):
