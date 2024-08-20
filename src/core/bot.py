@@ -1,8 +1,6 @@
 import os
 import discord
 import config
-import jishaku
-import logging
 
 from discord.ext import commands
 from typing import List, Callable, Coroutine

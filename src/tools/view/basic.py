@@ -1,4 +1,3 @@
-import config
 import discord
 from tools.default_view import DefaultView
 from discord.ext import commands
