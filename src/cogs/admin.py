@@ -7,7 +7,7 @@ from tools.view.admin_pannel import CreatePannelView
 class AdminCommands(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
-    
+
     @commands.group(
         name='panel'
     )
@@ -22,7 +22,7 @@ class AdminCommands(commands.Cog):
         embed.set_author(name='panel commands')
         embed.set_thumbnail(url=self.bot.user.avatar.url)
         await ctx.reply(embed=embed, mention_author=False)
-    
+
     @panel.command(
         name='config',
     )
@@ -53,6 +53,6 @@ class AdminCommands(commands.Cog):
         )
         embed.set_author(name=f'{ctx.guild.name}\'s config')
         await ctx.reply(embed=embed, view=None)
-    
+
 async def setup(bot: Bot):
     await bot.add_cog(AdminCommands(bot))

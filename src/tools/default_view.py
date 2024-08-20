@@ -22,7 +22,7 @@ class DefaultView(View):
             )
             return False
         return True
-    
+
     async def on_timeout(self):
         for child in self.children:
             child.disable = True

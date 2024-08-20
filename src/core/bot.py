@@ -27,7 +27,7 @@ class Bot(commands.AutoShardedBot):
     @property
     def config(self) -> config:
         return __import__('config')
-    
+
     @startup.append
     async def load_cogs(self):
         for files in os.listdir('./src/cogs'):
