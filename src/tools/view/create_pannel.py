@@ -15,7 +15,7 @@ class SelectPanelChannel(discord.ui.ChannelSelect):
             row=0
         )
         self.channel_id = None
-    
+
     async def callback(self, interaction: discord.Interaction):
         self.channel_id = self.values[0].id
         await interaction.response.defer()
@@ -32,7 +32,7 @@ class SelectPanelCategory(discord.ui.ChannelSelect):
         )
         self.category_id = None
 
-    
+
     async def callback(self, interaction: discord.Interaction):
         self.category_id = self.values[0].id
         await interaction.response.defer()
@@ -46,7 +46,7 @@ class SelectPanelSupportRoles(discord.ui.RoleSelect):
             row=2
         )
         self.roles_ids = []
-    
+
     async def callback(self, interaction: discord.Interaction):
         self.roles_ids.clear()
         for role in self.values:
@@ -63,7 +63,7 @@ class SelectPanelAdmins(discord.ui.UserSelect):
             row=3
         )
         self.users = []
-    
+
     async def callback(self, interaction: discord.Interaction):
         self.users.clear()
         for user in self.values:
