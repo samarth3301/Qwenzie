@@ -14,3 +14,7 @@ class Color:
 
 class Media:
     pannel_banner = ""
+
+class Links:
+    support = "https://discord.gg/techsolace"
+    invite = "https://discord.com/api/oauth2/authorize?client_id=1269028379928039544&permissions=8&scope=bot"
