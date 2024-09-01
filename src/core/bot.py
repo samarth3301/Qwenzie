@@ -1,8 +1,6 @@
 import os
 import discord
 import config
-import jishaku
-import logging
 
 from discord.ext import commands
 from typing import List, Callable, Coroutine
@@ -27,7 +25,7 @@ class Bot(commands.AutoShardedBot):
     @property
     def config(self) -> config:
         return __import__('config')
-    
+
     @startup.append
     async def load_cogs(self):
         for files in os.listdir('./src/cogs'):
@@ -56,7 +54,8 @@ class Bot(commands.AutoShardedBot):
     async def on_close(self):
         await self.db.disconnect()
 
-    async def on_message_edit(self, before: discord.Message, after: discord.Message):
+    @staticmethod
+    async def on_message_edit(before: discord.Message, after: discord.Message):
         if not before.author.bot and before.content != after.content:
             await bot.process_commands(after)
 
