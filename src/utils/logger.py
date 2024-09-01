@@ -64,7 +64,7 @@ log_config = {
         },
         'prisma': {
             'handlers': ['console', 'file_general', 'file_error'],
-            'level': 'WARNING',  # Or ERROR to minimize its output
+            'level': 'WARNING',
             'propagate': False,
         },
     }
