@@ -110,10 +110,11 @@ class AddPannelView(discord.ui.View):
         data={
             'pannel_count' : {'increment' : 1}
         })
+        button.style = discord.ButtonStyle.green
         button.disabled = True
         await interaction.response.edit_message(embed=embed, view=self)
 
-    @discord.ui.button(label='next', style=discord.ButtonStyle.gray, row=4)
+    @discord.ui.button(emoji='⏭️', label='next', style=discord.ButtonStyle.gray, row=4)
     async def on_next(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
             color=config.Color.default,
@@ -132,3 +133,6 @@ class AddPannelView(discord.ui.View):
         embed.add_field(name='Support Roles', value='> Select the support ticket roles. (only 5 roles can be selected as support roles)', inline=False)
         embed.add_field(name='Pannel Admins', value='> Select the users who are allowed to manage the tickets under this category. (leave blank if None.)', inline=False)
         await interaction.response.send_message(embed=embed, ephemeral=True)
+
+class AddPannel2View(discord.ui.View):
+    pass
