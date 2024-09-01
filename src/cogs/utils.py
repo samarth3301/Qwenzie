@@ -1,4 +1,3 @@
-import config
 import discord
 from core.bot import Bot
 from discord.ext import commands
