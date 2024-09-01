@@ -133,9 +133,6 @@ class AddPannelView(discord.ui.View):
         embed.add_field(name='Support Roles', value='> Select the support ticket roles. (only 5 roles can be selected as support roles)', inline=False)
         embed.add_field(name='Pannel Admins', value='> Select the users who are allowed to manage the tickets under this category. (leave blank if None.)', inline=False)
         await interaction.response.send_message(embed=embed, ephemeral=True)
-<<<<<<< HEAD
 
 class AddPannel2View(discord.ui.View):
     pass
-=======
->>>>>>> 5664c86d0cedad061eb42dab46be1e2fc682a7f9
