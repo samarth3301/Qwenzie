@@ -9,7 +9,7 @@ class AdminCommands(commands.Cog):
         self.bot = bot
 
     @commands.group(
-        name='panel'
+        name='panel',
     )
     @commands.has_permissions(administrator=True)
     async def panel(self, ctx: commands.Context):
@@ -40,7 +40,7 @@ class AdminCommands(commands.Cog):
     )
     @commands.has_permissions(administrator=True)
     async def guild_configurations(self, ctx: commands.Context):
-        guildData = await self.bot.db.guildconfig.find_first(
+        guildData = await self.bot.db.guildconfig.find_unique(
             where={
                 'guildId' : ctx.guild.id
             }
@@ -48,8 +48,9 @@ class AdminCommands(commands.Cog):
         embed = discord.Embed(
             color=config.Color.default,
             description=
-            f'> prefix : {guildData.prefix}\n'
-            f'> panels: {guildData.panel_count}'
+            f'> **prefix  :** {guildData.prefix}\n'
+            f'> **pannels :** {guildData.pannel_count}'
+            f'> **tickets created :** {guildData.tickets_created}'
         )
         embed.set_author(name=f'{ctx.guild.name}\'s config')
         await ctx.reply(embed=embed, view=None)
