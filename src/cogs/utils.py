@@ -34,5 +34,15 @@ class UtilCommands(commands.Cog):
         await ctx.reply(view=view, embed=embed, mention_author=False)
 
 
+    @commands.command(
+        name='serverinfo',
+        aliases=['guildinfo', 'si']
+    )
+    async def serverinfo(self, ctx: commands.Context):
+        embed = discord.Embed(
+            color=self.bot.config.Color.default
+        )
+        await ctx.reply(embed=embed)
+
 async def setup(bot: Bot):
     await bot.add_cog(UtilCommands(bot))
