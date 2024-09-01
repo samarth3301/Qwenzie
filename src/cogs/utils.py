@@ -22,10 +22,10 @@ class UtilCommands(commands.Cog):
             color=self.bot.config.Color.default,
             description=
             '👋 Hi, I am **Qwenzie**.\n\n'
-            f'A adorable discord bot. Capable to manage your servers with ease.\n'
-            f'You can invite me to your server by clicking on the Invite button below.\n\n'
-            f'`➡️`If you need any help or support, you can join my support server by clicking on the Support Server button below.\n'
-            f'`➡️` If you have any suggestions or feedback, you can join my support server and share your thoughts.'
+            'A adorable discord bot. Capable to manage your servers with ease.\n'
+            'You can invite me to your server by clicking on the Invite button below.\n\n'
+            '`➡️`If you need any help or support, you can join my support server by clicking on the Support Server button below.\n'
+            '`➡️` If you have any suggestions or feedback, you can join my support server and share your thoughts.'
         )
         embed.set_footer(text=f'requested by {ctx.author.name}', icon_url=ctx.author.display_avatar)
         embed.set_author(name='Qwenzie', icon_url=self.bot.user.display_avatar)
