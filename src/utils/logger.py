@@ -26,7 +26,7 @@ class CustomColoredFormatter(colorlog.ColoredFormatter):
 
 log_config = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'formatters': {
         'standard': {
             'format': '%(levelname)s : %(asctime)s - %(name)s : %(message)s',
@@ -57,10 +57,15 @@ log_config = {
         },
     },
     'loggers': {
-        '': {
+        'QWENZIE': {
             'handlers': ['console', 'file_general', 'file_error'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
+        },
+        'prisma': {
+            'handlers': ['console', 'file_general', 'file_error'],
+            'level': 'WARNING',  # Or ERROR to minimize its output
+            'propagate': False,
         },
     }
 }
