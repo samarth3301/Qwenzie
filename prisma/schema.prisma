@@ -15,6 +15,7 @@ model guildConfig {
   pannel_count    Int       @default(0)
   tickets_created Int       @default(0)
   pannels         Pannels[]
+  tickets         tickets[]
 }
 
 model Pannels {
@@ -37,5 +38,26 @@ model PannelConfig {
 }
 
 model TicketConfig {
-  id String @id @default(uuid()) @map("_id")
+  id      String    @id @default(uuid()) @map("_id")
+  tickets tickets[]
+}
+
+model tickets {
+  id              String        @id @default(uuid()) @map("_id")
+  guildConfig     guildConfig?  @relation(fields: [guildId], references: [guildId])
+  guildId         BigInt?
+  pannelId        BigInt?
+  ticketId        BigInt?
+  ticketConfig    TicketConfig? @relation(fields: [ticketConfigId], references: [id])
+  ticket          String
+  ticketStatus    String
+  ticketOwner     BigInt
+  ticketAdmins    BigInt[]
+  ticketClosed    Boolean
+  ticketClosedBy  BigInt?
+  ticketClosedAt  DateTime?
+  ticketCreatedAt DateTime?
+  ticketUpdatedAt DateTime?
+  ticketConfigId  String?
+  transcriptUrl   String?
 }

@@ -40,9 +40,18 @@ class UtilCommands(commands.Cog):
     )
     async def serverinfo(self, ctx: commands.Context):
         embed = discord.Embed(
-            color=self.bot.config.Color.default
+            color=self.bot.config.Color.default,
+            title=f"{ctx.guild.name}'s Information",
+            description=
+            f'`👑` **Owner :** {ctx.guild.owner.mention}\n'
+            f"`➡️` {ctx.guild.description if ctx.guild.description else ''}"
         )
-        await ctx.reply(embed=embed)
+        if ctx.guild.banner:
+            embed.set_image(url=ctx.guild.banner.url)
+        if ctx.guild.icon:
+            embed.set_thumbnail(url=ctx.guild.icon.url)
+        embed.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.display_avatar)
+        await ctx.reply(embed=embed, mention_author=False)
 
 async def setup(bot: Bot):
     await bot.add_cog(UtilCommands(bot))
