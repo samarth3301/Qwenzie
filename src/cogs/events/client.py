@@ -40,4 +40,11 @@ class ClientEvents(commands.Cog):
                 except Exception as e:
                     logger.error(f"Error removing guild configuration from the database: {e}")
         except Exception as e:
+<<<<<<< HEAD:src/cogs/events/client.py
             logger.error(f"Error querying guild configuration: {e}")
+=======
+            logger.error(f"Error querying guild configuration: {e}")
+
+async def setup(bot: Bot):
+    await bot.add_cog(GlobalEvents(bot))
+>>>>>>> 1c7a4a0686d1c94882f3549538a301ac79ef9a20:src/cogs/events.py
