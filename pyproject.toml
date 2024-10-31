@@ -2,7 +2,7 @@
 name = "mims"
 version = "0.1.0"
 description = "a minimal discord ticket bot with a pannel system."
-authors = ["samarthwtf <samarplayz1337@gmail.com>"]
+authors = ["samarth3301 <samarplayz1337@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.11"

@@ -17,7 +17,7 @@ class Bot(commands.AutoShardedBot):
         super().__init__(
             command_prefix='?',
             intents=intents,
-            activity=discord.CustomActivity(name="discord.gg/techsolace"),
+            activity=discord.CustomActivity(name="⚙️ : In the Lab"),
             status=discord.Status.idle,
             owner_ids=config.owner_ids
         )
