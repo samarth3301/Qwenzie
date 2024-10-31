@@ -70,11 +70,5 @@ class AdminCog(commands.Cog):
             f'> **tickets created :** {guildData.tickets_created}'
         )
         embed.set_author(name=f'{ctx.guild.name}\'s config')
-<<<<<<< HEAD:src/cogs/commands/admin.py
         await ctx.reply(embed=embed, view=None)
-=======
         await ctx.reply(embed=embed, view=None)
-
-async def setup(bot: Bot):
-    await bot.add_cog(AdminCommands(bot))
->>>>>>> 1c7a4a0686d1c94882f3549538a301ac79ef9a20:src/cogs/admin.py
