@@ -24,7 +24,3 @@ class TicketsCog(commands.Cog):
             '> **`transcript :`** transcript\'s the ticket.\n'
         )
         await ctx.send(embed=embed, mention_author=False)
-
-
-async def setup(bot: Bot):
-    await bot.add_cog(TicketsCog(bot))

@@ -2,7 +2,7 @@ import discord
 from core.bot import Bot
 from discord.ext import commands
 
-class UtilCommands(commands.Cog):
+class UtilCog(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
@@ -52,6 +52,3 @@ class UtilCommands(commands.Cog):
             embed.set_thumbnail(url=ctx.guild.icon.url)
         embed.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.display_avatar)
         await ctx.reply(embed=embed, mention_author=False)
-
-async def setup(bot: Bot):
-    await bot.add_cog(UtilCommands(bot))

@@ -4,7 +4,7 @@ from core.bot import Bot
 from utils.logger import logger
 
 
-class GlobalEvents(commands.Cog):
+class ClientEvents(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
@@ -41,6 +41,3 @@ class GlobalEvents(commands.Cog):
                     logger.error(f"Error removing guild configuration from the database: {e}")
         except Exception as e:
             logger.error(f"Error querying guild configuration: {e}")
-
-async def setup(bot: Bot):
-    await bot.add_cog(GlobalEvents(bot))

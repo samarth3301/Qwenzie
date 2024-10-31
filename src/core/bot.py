@@ -33,6 +33,7 @@ class Bot(commands.AutoShardedBot):
                 try:
                     await self.load_extension(f'cogs.{files[:-3]}')
                 except Exception as e:
+                    print(e)
                     logger.error(e)
         await self.load_extension('jishaku')
 

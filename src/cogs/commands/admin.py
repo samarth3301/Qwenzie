@@ -4,7 +4,7 @@ from discord.ext import commands
 from core.bot import Bot
 from tools.view.admin_pannel import CreatePannelView
 
-class AdminCommands(commands.Cog):
+class AdminCog(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
@@ -71,6 +71,3 @@ class AdminCommands(commands.Cog):
         )
         embed.set_author(name=f'{ctx.guild.name}\'s config')
         await ctx.reply(embed=embed, view=None)
-
-async def setup(bot: Bot):
-    await bot.add_cog(AdminCommands(bot))
