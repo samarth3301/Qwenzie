@@ -10,7 +10,7 @@ class UtilCog(commands.Cog):
         name='ping'
     )
     async def ping(self, ctx: commands.Context):
-        await ctx.reply(f'🏓 Pong! {round(self.bot.latency * 1000)}ms', mention_author=False)
+        await ctx.reply(f'Pong! 🏓\n Websocket Latency: `{round(self.bot.latency * 1000)}ms`', mention_author=False)
 
     @commands.command(
         name='links',
@@ -44,7 +44,7 @@ class UtilCog(commands.Cog):
             title=f"{ctx.guild.name}'s Information",
             description=
             f'`👑` **Owner :** {ctx.guild.owner.mention}\n'
-            f"`➡️` {ctx.guild.description if ctx.guild.description else ''}"
+            f"`➡️` {ctx.guild.description if ctx.guild.description else 'no description provided.'}"
         )
         if ctx.guild.banner:
             embed.set_image(url=ctx.guild.banner.url)
