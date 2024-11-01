@@ -25,6 +25,10 @@ class Bot(commands.AutoShardedBot):
     @property
     def config(self) -> config:
         return __import__('config')
+    
+    @property
+    def db(self) -> Prisma:
+        return self.dataBase
 
     @startup.append
     async def load_cogs(self):
@@ -40,8 +44,8 @@ class Bot(commands.AutoShardedBot):
     @startup.append
     async def connect_db(self):
         try:
-            self.db = Prisma()
-            await self.db.connect()
+            self.dataBase = Prisma()
+            await self.dataBase.connect()
             logger.info('Connected to database.')
         except Exception as e:
             logger.error(e)
