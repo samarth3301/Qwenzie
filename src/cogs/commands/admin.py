@@ -62,6 +62,8 @@ class AdminCog(commands.Cog):
                 'guildId' : ctx.guild.id
             }
         )
+        if not guildData:
+            return await ctx.reply('Guild data not found.', mention_author=False)
         embed = discord.Embed(
             color=config.Color.default,
             description=
@@ -70,5 +72,4 @@ class AdminCog(commands.Cog):
             f'> **tickets created :** {guildData.tickets_created}'
         )
         embed.set_author(name=f'{ctx.guild.name}\'s config')
-        await ctx.reply(embed=embed, view=None)
         await ctx.reply(embed=embed, view=None)

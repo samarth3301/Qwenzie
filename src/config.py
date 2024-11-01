@@ -16,6 +16,9 @@ class Color:
 class Media:
     pannel_banner = ""
 
+class Loggers:
+    guild = os.getenv("GUILD_LOG")
+
 class Links:
     support = "https://discord.gg/ghouls"
     invite = "https://discord.com/api/oauth2/authorize?client_id=1269028379928039544&permissions=8&scope=bot"
